@@ -3,9 +3,11 @@ package com.biblioteca.clasificacion.config;
 import com.biblioteca.clasificacion.model.Clasificacion;
 import com.biblioteca.clasificacion.repository.ClasificacionRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
@@ -15,9 +17,11 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (clasificacionRepository.count() > 0) {
+            log.info(">>>> Clasificaciones ya cargadas. Se omite inicializacion");
             return;
         }
 
+        log.info(">>>> Cargando clasificaciones iniciales...");
         clasificacionRepository.save(new Clasificacion(null, "PEGI 3", "ESRB E", 3,
                 "Todo publico", "Contenido apto para la mayoria de usuarios."));
         clasificacionRepository.save(new Clasificacion(null, "PEGI 7", "ESRB E10+", 7,
@@ -28,5 +32,6 @@ public class DataInitializer implements CommandLineRunner {
                 "Mayores de 16", "Puede incluir violencia mas realista o temas maduros."));
         clasificacionRepository.save(new Clasificacion(null, "PEGI 18", "ESRB M/AO", 18,
                 "Adultos", "Contenido para adultos, violencia intensa o temas sensibles."));
+        log.info(">>>> {} clasificaciones cargadas OK.", clasificacionRepository.count());
     }
 }
