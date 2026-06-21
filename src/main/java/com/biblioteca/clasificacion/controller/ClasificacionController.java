@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clasificaciones")
+@RequestMapping("/api/v2/clasificaciones")
 @RequiredArgsConstructor
 public class ClasificacionController {
 
